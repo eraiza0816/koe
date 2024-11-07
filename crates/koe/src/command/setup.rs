@@ -18,7 +18,7 @@ pub async fn setup_guild_commands(ctx: &Context, guild_id: GuildId) -> Result<()
                 })
                 .create_application_command(|command| {
                     command
-                        .name("kjoin")
+                        .name("pjoin")
                         .description("ボイスチャンネルに接続し、読み上げを開始")
                 })
                 .create_application_command(|command| {
@@ -28,7 +28,7 @@ pub async fn setup_guild_commands(ctx: &Context, guild_id: GuildId) -> Result<()
                 })
                 .create_application_command(|command| {
                     command
-                        .name("kleave")
+                        .name("pleave")
                         .description("ボイスチャンネルから退出")
                 })
                 .create_application_command(|command| {
@@ -38,7 +38,7 @@ pub async fn setup_guild_commands(ctx: &Context, guild_id: GuildId) -> Result<()
                 })
                 .create_application_command(|command| {
                     command
-                        .name("kskip")
+                        .name("pskip")
                         .description("読み上げ中のメッセージをスキップ")
                 })
                 .create_application_command(|command| {

@@ -5,9 +5,9 @@ use serenity::model::application::interaction::application_command::{
 
 pub fn parse(cmd: &ApplicationCommandInteraction) -> Command {
     match cmd.data.name.as_str() {
-        "join" | "kjoin" => Command::Join,
-        "leave" | "kleave" => Command::Leave,
-        "skip" | "kskip" => Command::Skip,
+        "join" | "pjoin" => Command::Join,
+        "leave" | "pleave" => Command::Leave,
+        "skip" | "pskip" => Command::Skip,
         "voice" => Command::Voice,
         "dict" => parse_dict(cmd),
         "help" => Command::Help,
