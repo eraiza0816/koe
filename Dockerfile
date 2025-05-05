@@ -1,4 +1,4 @@
-FROM rust:1.73.0-bullseye AS builder
+FROM mirror.gcr.io/rust:1.86.0-slim-bookworm AS builder
 
 RUN apt update && \
     apt install -y libopus-dev && \
