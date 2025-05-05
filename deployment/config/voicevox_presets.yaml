@@ -250,3 +250,25 @@
   volumeScale: 1
   prePhonemeLength: 0.1
   postPhonemeLength: 0.1
+
+- id: 23
+  name: ぞん子
+  speaker_uuid: 0156da66-4300-474a-a398-49eb2e8dd853
+  style_id: 23
+  speedScale: 1.2
+  pitchScale: 0
+  intonationScale: 1
+  volumeScale: 1
+  prePhonemeLength: 0.1
+  postPhonemeLength: 0.1
+
+- id: 24
+  name: ぞん子(実況風)
+  speaker_uuid: 0156da66-4300-474a-a398-49eb2e8dd853
+  style_id: 93
+  speedScale: 1.2
+  pitchScale: 0
+  intonationScale: 1
+  volumeScale: 1
+  prePhonemeLength: 0.1
+  postPhonemeLength: 0.1

@@ -1,0 +1,5 @@
+# 参照できるドキュメントと実装
+voicevox_engine の実装は voicevox_engine にあるので，このリポジトリの読み取りを許可します。
+改修が必要な場合は koe リポジトリ内の内容に対して行います。
+
+利用しているdocker composeはv2です。コマンドを実行する際には `docker compose` を使います。
