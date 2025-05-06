@@ -17,7 +17,7 @@ RUN --mount=type=cache,target=/root/.cargo/bin \
 
 ###
 
-FROM debian:bullseye-slim
+FROM mirror.gcr.io/debian:bookworm-slim
 
 RUN apt update && \
     apt install -y ca-certificates ffmpeg && \
