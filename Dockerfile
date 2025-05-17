@@ -1,7 +1,7 @@
 FROM mirror.gcr.io/rust:1.86.0-slim-bookworm AS builder
 
 RUN apt update && \
-    apt install -y libopus-dev && \
+    apt install -y libopus-dev pkg-config libssl-dev&& \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /root/koe
