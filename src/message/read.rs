@@ -36,21 +36,16 @@ pub async fn build_read_text(
 
     let text = replace_words_on_dict(conn, guild_id, &text).await?;
 
-    // 文字数を60文字に制限
-    if text.chars().count() > 60 {
-        Ok(text.chars().take(60 - 4).collect::<String>() + "、以下略")
+    // 文字数を120文字に制限
+    if text.chars().count() > 120 {
+        Ok(text.chars().take(120 - 4).collect::<String>() + "、以下略")
     } else {
         Ok(text)
     }
 }
 
-fn should_read_author_name(msg: &Message, last_msg: Option<&Message>) -> bool {
-    let Some(last_msg) = last_msg else {
-        return true;
-    };
-
-    msg.author != last_msg.author
-        || (msg.timestamp.unix_timestamp() - last_msg.timestamp.unix_timestamp()) > 10
+fn should_read_author_name(_msg: &Message, _last_msg: Option<&Message>) -> bool {
+    false
 }
 
 async fn build_author_name(ctx: &Context, msg: &Message) -> String {
@@ -65,7 +60,6 @@ fn plain_content(ctx: &Context, msg: &Message) -> String {
         .clean_channel(true)
         .clean_role(true)
         .clean_user(true)
-        .show_discriminator(false)
         .clean_here(false)
         .clean_everyone(false);
 

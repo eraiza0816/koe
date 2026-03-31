@@ -22,12 +22,18 @@ mod voice_state;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    rustls::crypto::ring::default_provider()
+        .install_default()
+        .expect("Failed to install crypto provider");
+
     env_logger::init();
 
     let config = config::load().await?;
     info!("Config loaded");
 
-    let intents = GatewayIntents::non_privileged() | GatewayIntents::MESSAGE_CONTENT;
+    let intents = GatewayIntents::non_privileged()
+        | GatewayIntents::MESSAGE_CONTENT
+        | GatewayIntents::GUILD_VOICE_STATES;
 
     let mut client = Client::builder(config.discord.bot_token, intents)
         .event_handler(event_handler::Handler)

@@ -12,21 +12,17 @@ use super::respond_text;
 use crate::{app_state, voice_call};
 
 const COMMAND_NAME: &str = "join";
-const ALIAS_COMMAND_NAME: &str = "kjoin";
 
 pub fn commands() -> Vec<CreateCommand> {
     vec![
         CreateCommand::new(COMMAND_NAME)
             .description("ボイスチャンネルに接続し、読み上げを開始")
-            .contexts(vec![InteractionContext::Guild]),
-        CreateCommand::new(ALIAS_COMMAND_NAME)
-            .description("ボイスチャンネルに接続し、読み上げを開始")
-            .contexts(vec![InteractionContext::Guild]),
+            .contexts(vec![InteractionContext::Guild])
     ]
 }
 
 pub fn matches(cmd: &CommandInteraction) -> bool {
-    matches!(cmd.data.name.as_str(), COMMAND_NAME | ALIAS_COMMAND_NAME)
+    matches!(cmd.data.name.as_str(), COMMAND_NAME)
 }
 
 pub async fn handle(ctx: &Context, cmd: &CommandInteraction) -> Result<()> {
@@ -60,7 +56,7 @@ pub async fn handle(ctx: &Context, cmd: &CommandInteraction) -> Result<()> {
     respond_text(
         ctx,
         cmd,
-        "接続しました。\n-# Koeは[VOICEVOX](<https://voicevox.hiroshiba.jp/>)を用いて音声合成を行っています。VOICEVOXや各音声ライブラリの利用規約を遵守してご利用ください。",
+        "接続しました。\n-# Yomiaは[VOICEVOX](<https://voicevox.hiroshiba.jp/>)で音声合成を行っています。各音声ライブラリの利用規約を遵守して使おう。",
     )
     .await?;
     Ok(())

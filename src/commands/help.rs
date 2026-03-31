@@ -25,7 +25,7 @@ pub async fn handle(ctx: &Context, cmd: &CommandInteraction) -> Result<()> {
     respond_text(
         ctx,
         cmd,
-        "使い方はこちらをご覧ください:\nhttps://github.com/ciffelia/koe/blob/main/docs/user_guide.md",
+        "使い方はこちらをご覧ください:\nhttps://github.com/eraiza0816/koe/blob/main/docs/user_guide.md",
     )
     .await?;
     Ok(())
