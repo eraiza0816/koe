@@ -22,12 +22,22 @@ pub async fn handle(ctx: &Context, msg: Message) -> Result<()> {
     }
 
     let state = app_state::get(ctx).await?;
-    let mut guild_state = state
-        .connected_guild_states
-        .get_mut(&guild_id)
-        .with_context(|| format!("Guild state not found for guild {guild_id}"))?;
 
-    if guild_state.bound_text_channel != msg.channel_id {
+    // Extract only what we need and immediately release the DashMap lock.
+    // Holding RefMut across .await points blocks Tokio worker threads, causing
+    // a deadlock when multiple messages arrive simultaneously.
+    let (bound_text_channel, last_message_read) = {
+        let guild_state = state
+            .connected_guild_states
+            .get(&guild_id)
+            .with_context(|| format!("Guild state not found for guild {guild_id}"))?;
+        (
+            guild_state.bound_text_channel,
+            guild_state.last_message_read.clone(),
+        )
+    };
+
+    if bound_text_channel != msg.channel_id {
         return Ok(());
     }
 
@@ -51,7 +61,7 @@ pub async fn handle(ctx: &Context, msg: Message) -> Result<()> {
         &mut conn,
         guild_id,
         &msg,
-        guild_state.last_message_read.as_ref(),
+        last_message_read.as_ref(),
     )
     .await?;
     trace!("Built text: {:?}", &text);
@@ -83,7 +93,9 @@ pub async fn handle(ctx: &Context, msg: Message) -> Result<()> {
 
     voice_call::enqueue(ctx, guild_id, audio).await?;
 
-    guild_state.last_message_read = Some(msg);
+    if let Some(mut guild_state) = state.connected_guild_states.get_mut(&guild_id) {
+        guild_state.last_message_read = Some(msg);
+    }
 
     Ok(())
 }
